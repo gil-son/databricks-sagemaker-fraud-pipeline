@@ -1,0 +1,31 @@
+# Databricks Asset Bundle for the credit card fraud pipeline (Project 2).
+# Runs on the workspace provisioned by databricks-aws-terraform-lab (Project 1).
+bundle:
+  name: fraud-pipeline
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    description: Unity Catalog catalog of the environment (bronze, silver and gold schemas live here)
+  data_bucket:
+    description: S3 data bucket (raw/creditcard/ input, export/gold/creditcard/ output). Terraform name pattern databricks-<env>-data-<databricks-account-id>
+  job_policy_id:
+    description: ID of the cluster policy databricks-<env>-job-policy (created by Project 1, module compute)
+  pipeline_sp_application_id:
+    description: Application ID (OAuth client_id) of the service principal databricks-<env>-pipeline that runs the job
+
+targets:
+  homol:
+    default: true
+    mode: production
+    workspace:
+      host: https://dbc-405a719f-a0d8.cloud.databricks.com
+      root_path: /Shared/.bundle/${bundle.name}/${bundle.target}
+    run_as:
+      service_principal_name: ${var.pipeline_sp_application_id}
+    variables:
+      catalog: homol_catalog
+      job_policy_id: 0001AA326BA37BEC
+      # data_bucket and pipeline_sp_application_id: pass with --var or BUNDLE_VAR_<name> (see README)
