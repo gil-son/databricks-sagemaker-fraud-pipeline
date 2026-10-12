@@ -3,6 +3,8 @@
 Plan for `databricks-sagemaker-fraud-pipeline` (Project 2). Legend: `[x]` done, `[ ]` pending.
 The notebooks are drafts and have not run yet.
 
+Time budget: the Databricks trial (Project 1 workspace) expires about 2026-10-21 (8 days left on 2026-10-13). The last 3-4 days are reserved for prod and `destroy` in Project 1, so Phase 1 and Phase 2 must fit before about 2026-10-17. Phase 3 is the first thing to cut.
+
 ## Phase 0 - Setup
 - [x] Repository created, cloned next to Project 1
 - [x] Scaffold: `databricks.yml`, `resources/fraud_pipeline.yml`, notebooks 01-05, docs

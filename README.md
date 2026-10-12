@@ -4,6 +4,8 @@
 [`databricks-aws-terraform-lab`](https://github.com/gil-son/databricks-aws-terraform-lab) (Project 1):
 Spark -> Delta Lake (Unity Catalog) -> MLflow -> Parquet export to S3 -> SageMaker training and endpoint.
 
+The platform side (workspace, catalogs, grants, cluster policies, CI) is documented in Project 1, section 3.10 "Project 2 repository" of its README, which lists what this repository relies on.
+
 Use case: credit card fraud detection (ULB/Worldline dataset, 284,807 transactions, 492 frauds = 0.17%).
 Because of the imbalance, models are judged by **AUPRC, precision and recall**, never accuracy.
 
