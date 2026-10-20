@@ -31,9 +31,20 @@ Purpose: job-interview/portfolio practice (Spark and Delta Lake pipelines, MLflo
 - Document each finished piece in `README.md` and tick it in `PROGRESS.md`.
 - The user runs deploys and anything that costs money; give them the commands, and tell them what to check and where (Databricks UI, S3, AWS console).
 
+## PAUSED (2026-10-20): the platform was destroyed
+
+The Databricks trial was about to expire, so the user paused the project and tore down the whole homol environment in Project 1 (see its `CLAUDE.md`, "Paused" section). **Everything in "Contract with Project 1" above describes the platform as it WAS; it does not exist now.** No pipeline run ever happened: the notebooks are still unexecuted drafts and no code was changed by the teardown. Nothing in this repo costs money.
+
+Gone and must be recreated (the values below will be different next time):
+- Workspace URL (`databricks.yml` line ~24 has the old `dbc-405a719f-a0d8` host), cluster policy id (`databricks.yml` line ~30 has `0001AA326BA37BEC`), service principal `databricks-homol-pipeline` and its application id (`BUNDLE_VAR_pipeline_sp_application_id`), data bucket name (it contains the Databricks account id, which may change), catalog/schemas, `creditcard.csv` in S3.
+
 ## Next session: where to start
 
-1. Pipeline SP OAuth secret (account console > Service principals > `databricks-homol-pipeline` > Secrets), stored as `DATABRICKS_CLIENT_ID` / `DATABRICKS_CLIENT_SECRET` / `DATABRICKS_HOST` secrets of the `homol` GitHub Environment of this repo.
-2. Install the Databricks CLI, `databricks bundle validate -t homol`, fix what it reports (policy defaults, `run_as`, variables).
-3. Turn the NAT on, `bundle deploy` + `bundle run fraud_pipeline`, fix notebook errors, turn the NAT off.
-4. Then workflow `databricks-pipeline-homol.yml` (validate on PR, deploy on push to `main`), then SageMaker (Phase 2).
+1. Rebuild the platform first, in Project 1 (see its "Resume" steps): new Databricks account/trial, `terraform apply -var enable_nat=true`, upload `creditcard.csv` to `raw/creditcard/`.
+2. Update `databricks.yml` with the new `host` and `job_policy_id` (both are hardcoded) and the new bucket / SP application id (`BUNDLE_VAR_*`).
+3. Pipeline SP OAuth secret (account console > Service principals > `databricks-homol-pipeline` > Secrets), stored as `DATABRICKS_CLIENT_ID` / `DATABRICKS_CLIENT_SECRET` / `DATABRICKS_HOST` secrets of the `homol` GitHub Environment of this repo.
+4. Install the Databricks CLI, `databricks bundle validate -t homol`, fix what it reports (policy defaults, `run_as`, variables).
+5. Turn the NAT on, `bundle deploy` + `bundle run fraud_pipeline`, fix notebook errors, turn the NAT off.
+6. Then workflow `databricks-pipeline-homol.yml` (validate on PR, deploy on push to `main`), then SageMaker (Phase 2).
+
+The 2026-10-21 trial deadline in this file and in `PROGRESS.md` no longer applies; plan against whatever account or trial is used next.
